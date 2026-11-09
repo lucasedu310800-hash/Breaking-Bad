@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breaking Code — GAME ON · Semifinal</title>
+<style>
+  :root{
+    --bg:#0b0f14; --bg2:#111821; --card:#151e29; --line:#233040;
+    --text:#e8eef5; --muted:#9aabbd; --blue:#4ade80; --blue2:#16a34a; --green:#7ed957; --gold:#f2c14e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--blue);text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+  .brand b{color:var(--blue)}
+  nav ul{display:flex;gap:22px;list-style:none;font-size:.9rem}
+  nav ul a{color:var(--muted)} nav ul a:hover,nav ul a.on{color:var(--text)}
+  @media(max-width:860px){nav ul{display:none}}
+
+  /* hero */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:url(img/menu_titulo.png) center/cover;opacity:.35;filter:saturate(1.1)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,15,20,.2),var(--bg) 92%),radial-gradient(circle at 20% 40%,rgba(74,222,128,.18),transparent 55%)}
+  .hero .wrap{position:relative;z-index:2}
+  .tag{display:inline-block;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--blue);border:1px solid rgba(74,222,128,.4);padding:6px 12px;border-radius:999px;margin-bottom:22px}
+  h1{font-size:clamp(2.6rem,6.5vw,5rem);line-height:1.05;font-weight:900}
+  h1 span{color:var(--blue)}
+  .lead{font-size:clamp(1.1rem,2vw,1.4rem);color:var(--muted);max-width:720px;margin:22px 0 32px}
+  .facts{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+  .fact{background:rgba(21,30,41,.8);border:1px solid var(--line);padding:12px 16px;border-radius:12px;font-size:.92rem}
+  .fact small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:10px;font-weight:700;background:var(--blue);color:#04170b;margin-right:10px}
+  .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+
+  /* sections */
+  section{padding:96px 0;border-top:1px solid var(--line)}
+  section:nth-of-type(even){background:var(--bg2)}
+  .kicker{color:var(--blue);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
+  h2{font-size:clamp(1.8rem,3.6vw,2.6rem);margin:8px 0 18px;line-height:1.15}
+  .sub{color:var(--muted);max-width:760px;font-size:1.08rem;margin-bottom:40px}
+  .grid{display:grid;gap:22px}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .card h3{font-size:1.15rem;margin-bottom:8px}
+  .card p,.card li{color:var(--muted);font-size:.97rem}
+  .card ul{padding-left:18px}
+  .icon{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(74,222,128,.12);color:var(--blue);font-size:1.3rem;margin-bottom:14px}
+  .split{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center}
+  @media(max-width:900px){.split{grid-template-columns:1fr}}
+  .shot{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+  .quote{border-left:3px solid var(--blue);padding:6px 0 6px 18px;font-size:1.25rem;font-style:italic;margin:22px 0}
+
+  /* worlds */
+  .world{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+  .world img{aspect-ratio:16/10;object-fit:cover;width:100%}
+  .world .info{padding:18px 20px}
+  .world .num{font-size:.75rem;color:var(--blue);letter-spacing:2px;text-transform:uppercase;font-weight:700}
+  .world p{color:var(--muted);font-size:.93rem}
+
+  /* kpis */
+  .kpi{text-align:left}
+  .kpi .big{font-size:2.4rem;font-weight:900;color:var(--green)}
+  .kpi .goal{display:inline-block;margin-top:10px;font-size:.8rem;color:var(--gold);border:1px solid rgba(242,193,78,.35);padding:3px 10px;border-radius:999px}
+
+  /* video */
+  .video{border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9;position:relative}
+  .video video{width:100%;height:100%;object-fit:cover;display:block}
+  .video .ph{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:var(--muted);background:url(img/shot_world1.png) center/cover}
+  .video .ph div{background:rgba(0,0,0,.65);padding:22px 28px;border-radius:14px}
+  .video.missing .ph{display:grid}
+
+  /* gallery */
+  .gallery{columns:3;column-gap:16px}
+  @media(max-width:900px){.gallery{columns:1}}
+  .gallery figure{break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in;background:var(--card)}
+  .gallery figcaption{font-size:.82rem;color:var(--muted);padding:9px 12px}
+  .lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;place-items:center;z-index:99;cursor:zoom-out;padding:30px}
+  .lb.open{display:grid} .lb img{max-height:90vh;border-radius:10px}
+
+  /* timeline */
+  .steps{counter-reset:s;display:grid;gap:14px}
+  .step{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .step::before{counter-increment:s;content:counter(s);flex:0 0 34px;height:34px;border-radius:50%;background:var(--blue2);display:grid;place-items:center;font-weight:800}
+  .step p{color:var(--muted);font-size:.95rem}
+  .pill{font-size:.72rem;padding:2px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+  .ok{background:rgba(126,217,87,.15);color:var(--green)} .todo{background:rgba(242,193,78,.15);color:var(--gold)}
+
+  footer{padding:40px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;text-align:center}
+  .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="brand"><b>Br</b>eaking <b>Co</b>de</div>
+  <ul>
+    <li><a href="#dor">A dor</a></li>
+    <li><a href="#estrategia">Estratégia</a></li>
+    <li><a href="#mundos">O jogo</a></li>
+    <li><a href="#evolucao">Evolução</a></li>
+    <li><a href="#video">Gameplay</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#validacao">Validação</a></li>
+    <li><a href="#autoavaliacao">Autoavaliação</a></li>
+  </ul>
+</div></nav>
+
+<!-- 1. APRESENTAÇÃO -->
+<header class="hero" id="topo"><div class="wrap">
+  <span class="tag">GAME ON · Modo História · Semifinal</span>
+  <h1><span>Br</span>eaking<br><span>Co</span>de</h1>
+  <p class="lead">O estagiário que erra no jogo aprende antes de errar na empresa. Um plataforma 3D de onboarding em cibersegurança, inspirado em <b>Breaking Bad</b>.</p>
+  <div class="facts">
+    <div class="fact"><small>Equipe</small>Magma Monkeys</div>
+    <div class="fact"><small>Inspirado em</small>Breaking Bad</div>
+    <div class="fact"><small>Engine</small>Godot 4 · 3D low poly</div>
+    <div class="fact"><small>Tema</small>Cibersegurança</div>
+  </div>
+  <a class="btn" href="#video">Ver gameplay</a>
+  <a class="btn ghost" href="#dor">Conhecer a proposta</a>
+</div></header>
+
+<!-- 2. A DOR -->
+<section id="dor"><div class="wrap">
+  <div class="kicker">01 · A dor</div>
+  <h2>Estagiário novo, risco de segurança desde o primeiro dia</h2>
+  <p class="sub">Treinamentos regulatórios de cibersegurança são obrigatórios, mas repetitivos. O estagiário assiste, marca presença e ainda não sabe <b>como agir na prática</b>.</p>
+  <div class="grid g3">
+    <div class="card reveal"><div class="icon">🔐</div><h3>O problema</h3><p>Conteúdo obrigatório, longo e igual para todos. Pouca prática, pouca retenção.</p></div>
+    <div class="card reveal"><div class="icon">🧑‍🎓</div><h3>Para o estagiário</h3><p>Insegurança e medo de errar. Sem saber o que pode ou não fazer, ele só aprende depois do erro.</p></div>
+    <div class="card reveal"><div class="icon">🏢</div><h3>Para a empresa</h3><p>Muitos estagiários entrando ao mesmo tempo, baixo engajamento no treinamento e risco de incidentes por falta de preparo.</p></div>
+  </div>
+  <div class="card reveal" style="margin-top:22px;border-color:rgba(74,222,128,.35)"><b>Perfil de empresa:</b> <span style="color:var(--muted)">corporativa ou multinacional com muitos estagiários. O jogo se adapta a empresas de tamanhos diferentes por configuração.</span></div>
+</div></section>
+
+<!-- 3. ESTRATÉGIA -->
+<section id="estrategia"><div class="wrap">
+  <div class="split">
+    <div>
+      <div class="kicker">02 · A estratégia</div>
+      <h2>Decidir primeiro, aprender com a consequência</h2>
+      <p class="sub" style="margin-bottom:20px">Em vez de assistir a um vídeo de regras, o estagiário enfrenta a situação: um e-mail suspeito, um colega pedindo a senha, um pendrive largado na mesa. Ele decide, vê o resultado e entende o porquê.</p>
+      <div class="quote">Breaking Bad traz segredos, pressão e consequências: o universo ideal para treinar quem protege informação, com humor corporativo.</div>
+    </div>
+    <div class="shot reveal"><img src="img/camera_dinamica_dialogo.png" alt="Diálogo no jogo"></div>
+  </div>
+  <div class="grid g4" style="margin-top:44px">
+    <div class="card reveal"><div style="color:var(--gold);font-weight:800">Fase 1</div><h3>Phishing e engenharia social</h3><p>E-mails, ligações e pessoas tentando enganar o estagiário.</p></div>
+    <div class="card reveal"><div style="color:var(--gold);font-weight:800">Fase 2</div><h3>Senhas e acessos</h3><p>Crachá, senhas fortes e o que nunca compartilhar.</p></div>
+    <div class="card reveal"><div style="color:var(--gold);font-weight:800">Fase 3</div><h3>Dados e dispositivos</h3><p>Tela bloqueada, pendrive desconhecido, dado sensível no lugar certo.</p></div>
+    <div class="card reveal"><div style="color:var(--gold);font-weight:800">Fase 4</div><h3>Incidentes e reporte</h3><p>Percebeu algo errado? Reportar rápido é o que conta.</p></div>
+  </div>
+  <p class="sub" style="margin:28px 0 0">Cada fase tem <b>3 atividades</b> em pontos do mundo (computador, telefone, pessoa) e <b>1 gameplay prática</b> de parkour ou missão.</p>
+</div></section>
+
+<!-- O JOGO -->
+<section id="mundos"><div class="wrap">
+  <div class="kicker">O jogo</div>
+  <h2>Como o jogo está hoje</h2>
+  <p class="sub">Capturas da versão atual.</p>
+  <div class="grid g3">
+    <div class="world reveal"><img src="img/camera_atras_explorando.png" alt="Mundo 1"><div class="info"><div class="num">Exploração</div><h3>A sede e o deserto</h3><p>Mundo aberto com colegas, mentor e pontos de atividade espalhados.</p></div></div>
+    <div class="world reveal"><img src="img/task_cracha.png" alt="Mundo 2"><div class="info"><div class="num">Atividades</div><h3>Crachá, fios, ditado</h3><p>Tarefas curtas que viram decisões: o que fazer e o que evitar.</p></div></div>
+    <div class="world reveal"><img src="img/luta_final.png" alt="Mundo 3"><div class="info"><div class="num">Chefe</div><h3>A luta final</h3><p>Ataques sinalizados que ficam mais difíceis: pressão e consequência no fim da fase.</p></div></div>
+  </div>
+  <div class="split" style="margin-top:56px">
+    <div class="shot reveal"><img src="img/personagens_lineup.png" alt="Personagens"></div>
+    <div>
+      <h3 style="font-size:1.5rem;margin-bottom:10px">Personagens com função</h3>
+      <p class="sub" style="margin-bottom:0">O estagiário, o Prof. Gois como mentor, o RH que não deixa entrar sem crachá, colegas da operação e o chefe que liga quando o prazo estoura. Todos originais, feitos pela equipe.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- EVOLUÇÃO -->
+<section id="evolucao"><div class="wrap">
+  <div class="kicker">Evolução</div>
+  <h2>Da versão base para a versão atual</h2>
+  <p class="sub">O vídeo de gameplay mostra a versão base. Depois dela refizemos personagens, mundo, câmera, chefe e sons.</p>
+  <div class="grid g2">
+    <div><div class="shot"><img src="img/old_player.png" alt="Modelo antigo"></div><p style="color:var(--muted);margin-top:10px"><b style="color:var(--text)">Antes:</b> bonecos de cubos, cor chapada, sem contorno e rosto quase vazio.</p></div>
+    <div><div class="shot"><img src="img/personagens_lineup.png" alt="Modelos novos"></div><p style="color:var(--muted);margin-top:10px"><b style="color:var(--text)">Depois:</b> cabeça grande, contorno preto de desenho, rostos expressivos e cada personagem reconhecível.</p></div>
+    <div><div class="shot"><img src="img/shot_world1.png" alt="Mundo antigo"></div><p style="color:var(--muted);margin-top:10px"><b style="color:var(--text)">Antes:</b> mundo espalhado, muitas placas e câmera fixa.</p></div>
+    <div><div class="shot"><img src="img/camera_atras_explorando.png" alt="Mundo novo"></div><p style="color:var(--muted);margin-top:10px"><b style="color:var(--text)">Depois:</b> mundo compacto por setores, visual de desenho, dicas por proximidade e câmera dinâmica.</p></div>
+  </div>
+  <div class="grid g4" style="margin-top:30px">
+    <div class="card reveal"><h3>Personagens</h3><p>Modelos novos para estagiário, mentor e colegas.</p></div>
+    <div class="card reveal"><h3>Câmera</h3><p>Câmera dinâmica nos diálogos e enquadramentos por área.</p></div>
+    <div class="card reveal"><h3>Chefe</h3><p>Luta final com seis ataques sinalizados e crescentes.</p></div>
+    <div class="card reveal"><h3>Som</h3><p>39 sons novos: passos, interface, chefe e ambiente.</p></div>
+  </div>
+</div></section>
+
+<!-- VÍDEO -->
+<section id="video"><div class="wrap">
+  <div class="kicker">Gameplay</div>
+  <h2>Gameplay da versão base</h2>
+  <p class="sub">Gravação da primeira versão jogável. As imagens desta página mostram como o jogo está agora.</p>
+  <div class="video" id="vid">
+    <video controls preload="metadata" poster="img/menu_titulo.png" src="video/gameplay.mp4"></video>
+    <div class="ph"><div><b style="color:var(--text)">Vídeo de gameplay</b><br>coloque o arquivo em <code>site/video/gameplay.mp4</code></div></div>
+  </div>
+</div></section>
+
+<!-- GALERIA -->
+<section id="galeria"><div class="wrap">
+  <div class="kicker">Galeria</div>
+  <h2>Capturas da versão atual</h2>
+  <p class="sub">Clique para ampliar.</p>
+  <div class="gallery" id="gal">
+    <figure><img src="img/menu_titulo.png" alt=""><figcaption>Menu de título</figcaption></figure>
+    <figure><img src="img/task_cracha.png" alt=""><figcaption>Tarefa: crachá do primeiro dia</figcaption></figure>
+    <figure><img src="img/camera_dinamica_dialogo.png" alt=""><figcaption>Diálogo com câmera dinâmica</figcaption></figure>
+    <figure><img src="img/task_fios.png" alt=""><figcaption>Tarefa: ligar os fios</figcaption></figure>
+    <figure><img src="img/luta_final.png" alt=""><figcaption>Luta final</figcaption></figure>
+    <figure><img src="img/hank_polaroid.png" alt=""><figcaption>O chefe que liga no prazo</figcaption></figure>
+    <figure><img src="img/task_ditado.png" alt=""><figcaption>Tarefa: ditado</figcaption></figure>
+    <figure><img src="img/camera_atras_explorando.png" alt=""><figcaption>Explorando o Mundo 1</figcaption></figure>
+    
+    <figure><img src="img/luta_final_gravata.png" alt=""><figcaption>Chefe final</figcaption></figure>
+    <figure><img src="img/trabalhadores_sheet.png" alt=""><figcaption>Os colegas de trabalho</figcaption></figure>
+    <figure><img src="img/mundo1_planta.png" alt=""><figcaption>Planta do Mundo 1</figcaption></figure>
+    
+    <figure><img src="img/config_controles.png" alt=""><figcaption>Controles configuráveis</figcaption></figure>
+    <figure><img src="img/gois.png" alt=""><figcaption>Prof. Gois, o mentor</figcaption></figure>
+    <figure><img src="img/config_camera_dinamica.png" alt=""><figcaption>Opções de câmera</figcaption></figure>
+    
+  </div>
+</div></section>
+
+<!-- 4. IMPACTO -->
+<section id="impacto"><div class="wrap">
+  <div class="kicker">03 · Impacto e indicadores</div>
+  <h2>Resultados que a empresa consegue medir</h2>
+  <p class="sub">A empresa ganha treinamento escalável, dados sobre onde reforçar e menos risco de incidentes.</p>
+  <div class="grid g3">
+    <div class="card kpi reveal"><div class="big">1</div><h3>Conclusão</h3><p>Quantos estagiários concluíram os treinamentos obrigatórios.</p></div>
+    <div class="card kpi reveal"><div class="big">2</div><h3>Aprendizagem</h3><p>Erros por tema, melhora entre tentativas e confiança calibrada.</p></div>
+    <div class="card kpi reveal"><div class="big">3</div><h3>Tempo até reportar</h3><p>Rapidez para reportar um incidente, sinal de cultura de segurança.</p></div>
+  </div>
+</div></section>
+
+<!-- 5. VALIDAÇÃO -->
+<section id="validacao"><div class="wrap">
+  <div class="kicker">04 · Validação e próximos passos</div>
+  <h2>O que já foi testado</h2>
+  <div class="grid g2">
+    <div class="steps">
+      <div class="step"><div><b>Movimento e física</b> <span class="pill ok">testado</span><p>Testes automáticos de pulo, parede, borda e save.</p></div></div>
+      <div class="step"><div><b>Robô que joga sozinho</b> <span class="pill ok">100/100</span><p>Um bot usa os controles reais e confirma que todos os trechos são alcançáveis.</p></div></div>
+      <div class="step"><div><b>Missões de cada mundo</b> <span class="pill ok">testado</span><p>Testes de fumaça cobrindo tarefas, chefes, áudio e final.</p></div></div>
+      <div class="step"><div><b>Jogo exportado (.exe)</b> <span class="pill ok">pronto</span><p>Roda no Windows sem instalar nada.</p></div></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div><b>Playtest com estagiários reais</b> <span class="pill todo">próximo</span></div></div>
+      <div class="step"><div><b>Mais casos em cada atividade</b> <span class="pill todo">próximo</span></div></div>
+      <div class="step"><div><b>Novos temas regulatórios (LGPD, compliance)</b> <span class="pill todo">próximo</span></div></div>
+      <div class="step"><div><b>Configuração por empresa</b> <span class="pill todo">próximo</span></div></div>
+      <div class="step"><div><b>Missões de reforço nos dias 15, 45 e 90</b> <span class="pill todo">futuro</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- AUTOAVALIAÇÃO -->
+<section id="autoavaliacao"><div class="wrap">
+  <div class="kicker">Autoavaliação</div>
+  <h2>Olhando para frente</h2>
+  <div class="grid g3">
+    <div class="card reveal"><h3>Com mais 1 semana</h3><ul><li>Teste com um grupo de estagiários</li><li>Ajustar dificuldade e textos pelo feedback</li><li>Polir o Mundo 3</li></ul></div>
+    <div class="card reveal"><h3>Com mais 30 dias</h3><ul><li>Painel de indicadores para o RH</li><li>Editor de conteúdo para cada empresa</li><li>Versão web e cooperativo</li></ul></div>
+    <div class="card reveal"><h3>O que aprendemos</h3><ul><li>Transformar um problema real em mecânica de jogo</li><li>Testar cedo e de forma automática</li><li>Apresentar estratégia, não só o jogo</li></ul></div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="brand" style="margin-bottom:6px"><b>Br</b>eaking <b>Co</b>de</div>
+  Magma Monkeys · GAME ON — Modo História · Inspirado em Breaking Bad · Personagens, cenários, músicas e sons originais.
+</footer>
+
+<div class="lb" id="lb"><img alt=""></div>
+
+<script>
+  // vídeo ausente -> mostra aviso
+  const v=document.querySelector('#vid video');
+  v.addEventListener('error',()=>document.getElementById('vid').classList.add('missing'));
+  // lightbox
+  const lb=document.getElementById('lb');
+  document.querySelectorAll('#gal img, .world img, .shot img').forEach(i=>i.addEventListener('click',()=>{lb.querySelector('img').src=i.src;lb.classList.add('open')}));
+  lb.onclick=()=>lb.classList.remove('open');
+  // animação ao rolar
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
