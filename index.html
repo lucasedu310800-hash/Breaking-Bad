@@ -287,7 +287,7 @@
 <section id="evolucao"><div class="wrap">
   <div class="kicker">Evolução</div>
   <h2>Da versão base para a versão atual</h2>
-  <p class="sub">O vídeo de gameplay mostra a versão base, feita no <b>Godot</b>. Depois <b>migramos o jogo para a Unity</b> e refizemos personagens, mundo, câmera, chefe e sons.</p>
+  <p class="sub">A primeira versão foi feita no <b>Godot</b>. Depois <b>migramos o jogo para a Unity</b> e refizemos personagens, mundo, câmera, chefe e sons.</p>
   <div class="card reveal" style="margin-bottom:26px;border-color:rgba(74,222,128,.35)"><h3>Godot → Unity</h3><p>Começamos no Godot para validar a ideia rápido: movimento, fases e tarefas. Com o conceito aprovado, passamos para a Unity, que dá mais recursos de visual, câmera e ferramentas para crescer o projeto e configurar o jogo por empresa.</p></div>
   <div class="grid g2">
     <div><div class="shot"><img src="img/old_player.png" alt="Modelo antigo"></div><p style="color:var(--muted);margin-top:10px"><b style="color:var(--text)">Antes:</b> bonecos de cubos, cor chapada, sem contorno e rosto quase vazio.</p></div>
@@ -308,15 +308,8 @@
   <div class="kicker">Trailer</div>
   <h2>Trailer da versão atual</h2>
   <p class="sub">Fase 1 e Fase 2: hub com a equipe, tasks, as ligações do Hank, pontuação das escolhas e parkour.</p>
-  <div class="video" style="margin-bottom:56px">
+  <div class="video">
     <video controls preload="metadata" playsinline poster="img/trailer_poster.jpg" src="video/trailer.mp4"></video>
-  </div>
-  <div class="kicker">Gameplay</div>
-  <h2>Gameplay da versão base</h2>
-  <p class="sub">Gravação da primeira versão jogável. As imagens desta página mostram como o jogo está agora.</p>
-  <div class="video" id="vid">
-    <video controls preload="metadata" poster="img/menu_titulo.png" src="video/gameplay.mp4"></video>
-    <div class="ph"><div><b style="color:var(--text)">Vídeo de gameplay</b><br>coloque o arquivo em <code>site/video/gameplay.mp4</code></div></div>
   </div>
 </div></section>
 
@@ -388,9 +381,6 @@
       const a=(Math.sin(p.t)+1)/2*.75+.08;const fade=Math.min(1,Math.max(.15,(p.x/W)*2.2));
       x.globalAlpha=a*fade;x.fillStyle=p.g?'#4ade80':'#e9fff0';x.shadowBlur=p.r*8;x.shadowColor=p.g?'#22c55e':'#ffffff';
       x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fill()}requestAnimationFrame(f)})();})();
-  // vídeo ausente -> mostra aviso
-  const v=document.querySelector('#vid video');
-  v.addEventListener('error',()=>document.getElementById('vid').classList.add('missing'));
   // lightbox
   const lb=document.getElementById('lb');
   document.querySelectorAll('#gal img, .world img, .shot img, #tasks img').forEach(i=>i.addEventListener('click',()=>{lb.querySelector('img').src=i.src;lb.classList.add('open')}));
