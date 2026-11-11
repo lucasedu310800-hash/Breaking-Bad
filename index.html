@@ -160,6 +160,7 @@
   <ul>
     <li><a href="#dor">A dor</a></li>
     <li><a href="#estrategia">Estratégia</a></li>
+    <li><a href="#decisoes">Dinâmica</a></li>
     <li><a href="#mundos">O jogo</a></li>
     <li><a href="#inspiracoes">Inspirações</a></li>
     <li><a href="#tasks">Tasks</a></li>
@@ -221,6 +222,28 @@
     <div class="card reveal"><div style="color:var(--gold);font-weight:800">Fase 4</div><h3>Incidentes e reporte</h3><p>Percebeu algo errado? Reportar rápido é o que conta.</p></div>
   </div>
   <p class="sub" style="margin:28px 0 0">Cada fase tem <b>3 atividades</b> em pontos do mundo (computador, telefone, pessoa) e <b>1 gameplay prática</b> de parkour ou missão.</p>
+</div></section>
+
+<!-- DECISÕES -->
+<section id="decisoes"><div class="wrap">
+  <div class="kicker">A dinâmica</div>
+  <h2>Ideal, aceitável ou errado</h2>
+  <p class="sub">Em cada situação o estagiário escolhe o que fazer. O jogo mostra a consequência na hora, a regra da empresa e o porquê. Errar não trava o jogo: ele pode tentar de novo numa variação do caso.</p>
+  <div class="grid g3">
+    <div class="card reveal" style="padding:0;overflow:hidden;border-top:4px solid #7ed957"><img src="img/decisao_ideal.png" alt="Resultado ideal" style="cursor:zoom-in"><div style="padding:22px">
+      <div style="color:#7ed957;font-family:'Archivo Black';font-size:1.4rem">IDEAL <span style="font-size:1rem">◆ +3</span></div>
+      <p style="margin-top:6px">A atitude certa. Ex.: achou um pen drive no chão e entregou para a Segurança em vez de plugar.</p>
+      <p style="margin-top:10px"><b style="color:var(--text)">Ganha:</b> 3 cristais e a regra reforçada.</p></div></div>
+    <div class="card reveal" style="padding:0;overflow:hidden;border-top:4px solid var(--gold)"><img src="img/decisao_aceitavel.png" alt="Resultado aceitável" style="cursor:zoom-in"><div style="padding:22px">
+      <div style="color:var(--gold);font-family:'Archivo Black';font-size:1.4rem">ACEITÁVEL <span style="font-size:1rem">◆ +1</span></div>
+      <p style="margin-top:6px">Resolve, mas não do melhor jeito, ou veio depois de um erro. Ex.: errou e reportou na hora para a Segurança.</p>
+      <p style="margin-top:10px"><b style="color:var(--text)">Ganha:</b> 1 cristal. Uma nova tentativa vale no máximo "aceitável".</p></div></div>
+    <div class="card reveal" style="padding:0;overflow:hidden;border-top:4px solid #ff6b5b"><img src="img/decisao_errado.png" alt="Resultado errado" style="cursor:zoom-in"><div style="padding:22px">
+      <div style="color:#ff6b5b;font-family:'Archivo Black';font-size:1.4rem">ERRADO <span style="font-size:1rem">◆ +0</span></div>
+      <p style="margin-top:6px">A consequência aparece. Ex.: emprestou a senha e o registro mostra o SEU usuário.</p>
+      <p style="margin-top:10px"><b style="color:var(--text)">Perde:</b> 0 cristais e tempo do prazo (−20 s). Pode tentar de novo com uma variação.</p></div></div>
+  </div>
+  <div class="card reveal" style="margin-top:22px;border-color:rgba(74,222,128,.35)"><b>Por que funciona?</b> <span style="color:var(--muted)">O estagiário erra no jogo, vê o impacto e aprende a regra antes de errar na empresa. E a empresa ganha dados: quais temas geram mais erros e quanto o estagiário melhora entre as tentativas.</span></div>
 </div></section>
 
 <!-- O JOGO -->
@@ -387,7 +410,7 @@
   v.addEventListener('error',()=>document.getElementById('vid').classList.add('missing'));
   // lightbox
   const lb=document.getElementById('lb');
-  document.querySelectorAll('#gal img, .world img, .shot img, #tasks img').forEach(i=>i.addEventListener('click',()=>{lb.querySelector('img').src=i.src;lb.classList.add('open')}));
+  document.querySelectorAll('#gal img, .world img, .shot img, #tasks img, #decisoes img').forEach(i=>i.addEventListener('click',()=>{lb.querySelector('img').src=i.src;lb.classList.add('open')}));
   lb.onclick=()=>lb.classList.remove('open');
   // animação ao rolar
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
